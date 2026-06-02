@@ -157,11 +157,11 @@ footer a{
                 </li>
 
                 <li>
-                    <a href="#">Laptop</a>
+                    <a href="#">Bộ phận ngoại vi và Bo mạch chủ</a>
                 </li>
 
                 <li>
-                    <a href="#">Điện Thoại</a>
+                    <a href="#">Linh kiện các loại</a>
                 </li>
 
                 <li>
@@ -183,11 +183,11 @@ footer a{
     <div class="hero-content">
 
         <h1>
-            CỬA HÀNG THIẾT BỊ ĐIỆN TỬ
+            QUẢN LÝ CÁC THIẾT BỊ ĐIỆN TỬ
         </h1>
 
         <p>
-            Chuyên Laptop, Điện Thoại, Gaming Gear Chính Hãng
+            Chuyên Linh kiện & Phụ tùng Điện tử Chính Hãng
         </p>
 
         <a href="#body-wrapper">

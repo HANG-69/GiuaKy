@@ -15,8 +15,6 @@
         ProductDAO dao = new ProductDAO();
 
         listProduct = dao.getAllProducts();
-
-        keyword = "";
     }
 
     if(keyword == null){
@@ -31,102 +29,11 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<title>Thiết Bị Điện Tử</title>
+    <title>Thiết Bị Điện Tử</title>
 
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body{
-    background:#f4f6f9;
-    padding:40px;
-}
-
-.container{
-    max-width:1000px;
-    margin:auto;
-    background:#fff;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.1);
-}
-
-h2{
-    text-align:center;
-    color:#2c3e50;
-    margin-bottom:25px;
-}
-
-.search-box{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    margin-bottom:25px;
-}
-
-.search-box input{
-    width:350px;
-    padding:12px 15px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:15px;
-}
-
-.search-box button{
-    padding:12px 25px;
-    border:none;
-    border-radius:8px;
-    background:#3498db;
-    color:white;
-    cursor:pointer;
-    font-size:15px;
-    transition:0.3s;
-}
-
-.search-box button:hover{
-    background:#2980b9;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    overflow:hidden;
-    border-radius:10px;
-}
-
-thead{
-    background:#3498db;
-    color:white;
-}
-
-th, td{
-    padding:12px;
-    text-align:center;
-    border-bottom:1px solid #eee;
-}
-
-tbody tr:hover{
-    background:#f8f9fa;
-}
-
-.price{
-    color:#e74c3c;
-    font-weight:bold;
-}
-
-.brand{
-    color:#27ae60;
-    font-weight:bold;
-}
-
-</style>
+    <link rel="stylesheet" href="css/main.css">
 
 </head>
 
@@ -134,9 +41,15 @@ tbody tr:hover{
 
 <div class="container">
 
-    <h2>
-        DANH SÁCH THIẾT BỊ ĐIỆN TỬ
-    </h2>
+    <div class="header">
+
+        <h1>THIẾT BỊ ĐIỆN TỬ</h1>
+
+        <a href="addproduct.jsp" class="add-btn">
+            + Thêm sản phẩm
+        </a>
+
+    </div>
 
     <form action="timsanpham"
           method="post"
@@ -145,8 +58,8 @@ tbody tr:hover{
         <input
             type="text"
             name="q"
-            value="<%= keyword %>"
             placeholder="Nhập tên thiết bị..."
+            value="<%= keyword %>"
         >
 
         <button type="submit">
@@ -155,65 +68,72 @@ tbody tr:hover{
 
     </form>
 
-    <table>
+    <div class="product-grid">
 
-        <thead>
+    <%
 
-            <tr>
-                <th>ID</th>
-                <th>Tên Thiết Bị</th>
-                <th>Loại</th>
-                <th>Giá</th>
-                <th>Tồn Kho</th>
-            </tr>
+        if(listProduct != null){
 
-        </thead>
+            for(Product p : listProduct){
 
-        <tbody>
+    %>
 
-        <%
+        <div class="product-card">
 
-            if(listProduct != null){
+            <img
+                src="<%= p.getImageURL() %>"
+                alt="product"
+                class="product-img"
+            >
 
-                for(Product p : listProduct){
+            <div class="product-info">
 
-        %>
-
-            <tr>
-
-                <td>
-                    <%= p.getProductID() %>
-                </td>
-
-                <td>
+                <h3>
                     <%= p.getProductName() %>
-                </td>
+                </h3>
 
-                <td class="brand">
-                    Electronic
-                </td>
+                <p class="price">
+                    <%= String.format("%,.0f", p.getUnitPrice()) %> đ
+                </p>
 
-                <td class="price">
-                    <%= String.format("%,.0f", p.getUnitPrice()) %> VND
-                </td>
+                <p class="stock">
+                    Còn <%= p.getUnitsInStock() %> sản phẩm
+                </p>
 
-                <td>
-                    <%= p.getUnitsInStock() %>
-                </td>
+                <div class="action">
 
-            </tr>
+                    <a
+                        href="editproduct.jsp?id=<%= p.getProductID() %>"
+                        &name=<%= p.getProductName() %>
+                        &price=<%= p.getUnitPrice() %>
+                        &stock=<%= p.getUnitsInStock() %>"
+                        class="edit-btn"
+                    >
+                        Sửa
+                    </a>
 
-        <%
+                    <a
+                        href="deleteproduct?id=<%= p.getProductID() %>"
+                        class="delete-btn"
+                    >
+                        Xóa
+                    </a>
 
-                }
+                </div>
+
+            </div>
+
+        </div>
+
+    <%
 
             }
 
-        %>
+        }
 
-        </tbody>
+    %>
 
-    </table>
+    </div>
 
 </div>
 

@@ -3,3 +3,6 @@ controller/ChuyendoitienteServlet.class
 dao/ProductDAO.class
 model/Product.class
 controller/ListProductServlet.class
+controller/EditProductServlet.class
+controller/DeleteProductServlet.class
+controller/AddProductServlet.class

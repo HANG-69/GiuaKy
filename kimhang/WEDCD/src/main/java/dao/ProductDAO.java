@@ -11,12 +11,13 @@ import java.util.List;
 
 public class ProductDAO {
 
-    public ProductDAO() {
-}
-
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
+
+    // ==========================
+    // HIỂN THỊ TẤT CẢ SẢN PHẨM
+    // ==========================
 
     public List<Product> getAllProducts() {
 
@@ -25,8 +26,9 @@ public class ProductDAO {
         String sql =
                 "SELECT ProductID, ProductName, "
                 + "SupplierID, CategoryID, "
-                + "QuantityPerUnit, UnitPrice, UnitsInStock "
-                + "FROM Products";
+                + "QuantityPerUnit, UnitPrice, "
+                + "UnitsInStock, ImageURL "
+                + "FROM SanPham";
 
         try {
 
@@ -38,15 +40,16 @@ public class ProductDAO {
 
             while (rs.next()) {
 
-                Product p = new Product(
-                        rs.getInt("ProductID"),
-                        rs.getString("ProductName"),
-                        rs.getInt("SupplierID"),
-                        rs.getInt("CategoryID"),
-                        rs.getString("QuantityPerUnit"),
-                        rs.getDouble("UnitPrice"),
-                        rs.getInt("UnitsInStock")
-                );
+                Product p = new Product();
+
+                p.setProductID(rs.getInt("ProductID"));
+                p.setProductName(rs.getString("ProductName"));
+                p.setSupplierID(rs.getInt("SupplierID"));
+                p.setCategoryID(rs.getInt("CategoryID"));
+                p.setQuantityPerUnit(rs.getString("QuantityPerUnit"));
+                p.setUnitPrice(rs.getDouble("UnitPrice"));
+                p.setUnitsInStock(rs.getInt("UnitsInStock"));
+                p.setImageURL(rs.getString("ImageURL"));
 
                 list.add(p);
             }
@@ -58,45 +61,141 @@ public class ProductDAO {
         return list;
     }
 
-    //-----------------
+    // ==========================
+    // TÌM KIẾM SẢN PHẨM
+    // ==========================
 
     public List<Product> searchProduct(String keyword) {
-    List<Product> list = new ArrayList<>();
 
-    String sql = """
-        SELECT ProductID,
-               ProductName,
-               UnitPrice,
-               UnitsInStock
-        FROM Products
-        WHERE ProductName LIKE ?
-        """;
+        List<Product> list = new ArrayList<>();
 
-    try {
-        conn = new DBContext().getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, "%" + keyword + "%");
+        String sql =
+                "SELECT * FROM SanPham "
+                + "WHERE ProductName LIKE ?";
 
-        ResultSet rs = ps.executeQuery();
+        try {
 
-        while (rs.next()) {
-            Product p = new Product();
+            conn = new DBContext().getConnection();
 
-            p.setProductID(rs.getInt("ProductID"));
-            p.setProductName(rs.getString("ProductName"));
-            p.setUnitPrice(rs.getDouble("UnitPrice"));
-            p.setUnitsInStock(rs.getInt("UnitsInStock"));
+            ps = conn.prepareStatement(sql);
 
-            list.add(p);
+            ps.setString(1, "%" + keyword + "%");
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Product p = new Product();
+
+                p.setProductID(rs.getInt("ProductID"));
+                p.setProductName(rs.getString("ProductName"));
+                p.setSupplierID(rs.getInt("SupplierID"));
+                p.setCategoryID(rs.getInt("CategoryID"));
+                p.setQuantityPerUnit(rs.getString("QuantityPerUnit"));
+                p.setUnitPrice(rs.getDouble("UnitPrice"));
+                p.setUnitsInStock(rs.getInt("UnitsInStock"));
+                p.setImageURL(rs.getString("ImageURL"));
+
+                list.add(p);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-    } catch (Exception e) {
-        e.printStackTrace();
+        return list;
     }
 
-    return list;
-}
+    // ==========================
+    // THÊM SẢN PHẨM
+    // ==========================
 
+    public void insertProduct(String name,
+                              double price,
+                              int stock,
+                              String imageURL) {
 
+        String sql =
+                "INSERT INTO SanPham "
+                + "(ProductName, SupplierID, "
+                + "CategoryID, QuantityPerUnit, "
+                + "UnitPrice, UnitsInStock, ImageURL) "
+                + "VALUES (?,1,1,N'1 cái',?,?,?)";
 
+        try {
+
+            conn = new DBContext().getConnection();
+
+            ps = conn.prepareStatement(sql);
+
+            ps.setString(1, name);
+            ps.setDouble(2, price);
+            ps.setInt(3, stock);
+            ps.setString(4, imageURL);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // ==========================
+    // XÓA SẢN PHẨM
+    // ==========================
+
+    public void deleteProduct(int id) {
+
+        String sql =
+                "DELETE FROM SanPham "
+                + "WHERE ProductID = ?";
+
+        try {
+
+            conn = new DBContext().getConnection();
+
+            ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, id);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // ==========================
+    // SỬA SẢN PHẨM
+    // ==========================
+
+    public void updateProduct(int id,
+                              String name,
+                              double price,
+                              int stock) {
+
+        String sql =
+                "UPDATE SanPham "
+                + "SET ProductName = ?, "
+                + "UnitPrice = ?, "
+                + "UnitsInStock = ? "
+                + "WHERE ProductID = ?";
+
+        try {
+
+            conn = new DBContext().getConnection();
+
+            ps = conn.prepareStatement(sql);
+
+            ps.setString(1, name);
+            ps.setDouble(2, price);
+            ps.setInt(3, stock);
+            ps.setInt(4, id);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
