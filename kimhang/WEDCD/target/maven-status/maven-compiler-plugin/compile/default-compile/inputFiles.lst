@@ -1,8 +1,8 @@
-/workspaces/GiuaKy/kimhang/WEDCD/src/main/java/context/DBContext.java
 /workspaces/GiuaKy/kimhang/WEDCD/src/main/java/controller/AddProductServlet.java
-/workspaces/GiuaKy/kimhang/WEDCD/src/main/java/controller/ChuyendoitienteServlet.java
+/workspaces/GiuaKy/kimhang/WEDCD/src/main/java/controller/ChuyenDoiServlet.java
 /workspaces/GiuaKy/kimhang/WEDCD/src/main/java/controller/DeleteProductServlet.java
 /workspaces/GiuaKy/kimhang/WEDCD/src/main/java/controller/EditProductServlet.java
 /workspaces/GiuaKy/kimhang/WEDCD/src/main/java/controller/ListProductServlet.java
 /workspaces/GiuaKy/kimhang/WEDCD/src/main/java/dao/ProductDAO.java
+/workspaces/GiuaKy/kimhang/WEDCD/src/main/java/model/DBContext.java
 /workspaces/GiuaKy/kimhang/WEDCD/src/main/java/model/Product.java
