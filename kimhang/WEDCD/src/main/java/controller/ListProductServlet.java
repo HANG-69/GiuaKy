@@ -13,7 +13,26 @@ import java.util.List;
 @WebServlet(name = "ListProductServlet",
             urlPatterns = {"/timsanpham"})
 public class ListProductServlet extends HttpServlet {
+     
+     @Override
+protected void doGet(
+        HttpServletRequest request,
+        HttpServletResponse response)
+        throws ServletException, IOException {
 
+    ProductDAO dao = new ProductDAO();
+
+    List<Product> list =
+            dao.getAllProducts();
+
+    request.setAttribute(
+            "listProduct",
+            list);
+
+    request.getRequestDispatcher(
+            "/index.jsp")
+            .forward(request,response);
+}
  
     @Override
     protected void doPost(HttpServletRequest request,

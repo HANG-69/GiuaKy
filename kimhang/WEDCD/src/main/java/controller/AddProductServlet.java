@@ -36,6 +36,7 @@ public class AddProductServlet extends HttpServlet {
 
         dao.insertProduct(name, price, stock, imageURL);
 
-        response.sendRedirect("listsanpham.jsp");
+        request.getRequestDispatcher("/timsanpham")
+       .forward(request,response);
     }
 }

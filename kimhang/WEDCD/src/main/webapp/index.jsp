@@ -2,6 +2,12 @@
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 
+<%@ page import="model.User" %>
+
+<%
+User user =
+    (User) session.getAttribute("user");
+%>
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -134,6 +140,84 @@ footer a{
 
 <body>
 
+<%
+if(user == null){
+%>
+
+<div style="
+width:400px;
+margin:100px auto;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 0 10px #ccc;
+">
+
+    <h2 style="text-align:center;margin-bottom:20px">
+        ĐĂNG NHẬP HỆ THỐNG
+    </h2>
+
+    <form action="login" method="post">
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Tên đăng nhập"
+            required
+            style="
+            width:100%;
+            padding:12px;
+            margin-bottom:15px;">
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Mật khẩu"
+            required
+            style="
+            width:100%;
+            padding:12px;
+            margin-bottom:15px;">
+
+        <button
+            type="submit"
+            style="
+            width:100%;
+            padding:12px;
+            background:#00bcd4;
+            color:white;
+            border:none;
+            border-radius:5px;">
+
+            Đăng nhập
+
+        </button>
+
+    </form>
+
+    <%
+    if(request.getParameter("error") != null){
+    %>
+
+        <p style="
+        color:red;
+        text-align:center;
+        margin-top:10px">
+
+            Sai tài khoản hoặc mật khẩu
+
+        </p>
+
+    <%
+    }
+    %>
+
+</div>
+
+<%
+}else{
+%>
+
 <!-- HEADER -->
 
 <header>
@@ -157,15 +241,21 @@ footer a{
                 </li>
 
                 <li>
-                    <a href="#">Bộ phận ngoại vi và Bo mạch chủ</a>
+                    <a href="#">Bo Mạch Chủ</a>
                 </li>
 
                 <li>
-                    <a href="#">Linh kiện các loại</a>
+                    <a href="#">Linh Kiện</a>
                 </li>
 
                 <li>
                     <a href="#">Liên Hệ</a>
+                </li>
+
+                <li>
+                    <a href="logout">
+                        Đăng xuất
+                    </a>
                 </li>
 
             </ul>
@@ -187,7 +277,8 @@ footer a{
         </h1>
 
         <p>
-            Chuyên Linh kiện & Phụ tùng Điện tử Chính Hãng
+            Xin chào
+            <b><%= user.getFullName() %></b>
         </p>
 
         <a href="#body-wrapper">
@@ -222,6 +313,10 @@ footer a{
     </p>
 
 </footer>
+
+<%
+}
+%>
 
 </body>
 </html>

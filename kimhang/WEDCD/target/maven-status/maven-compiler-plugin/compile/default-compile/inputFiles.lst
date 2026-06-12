@@ -3,6 +3,10 @@
 /workspaces/GiuaKy/kimhang/WEDCD/src/main/java/controller/DeleteProductServlet.java
 /workspaces/GiuaKy/kimhang/WEDCD/src/main/java/controller/EditProductServlet.java
 /workspaces/GiuaKy/kimhang/WEDCD/src/main/java/controller/ListProductServlet.java
+/workspaces/GiuaKy/kimhang/WEDCD/src/main/java/controller/LoginServlet.java
+/workspaces/GiuaKy/kimhang/WEDCD/src/main/java/controller/LogoutServlet.java
 /workspaces/GiuaKy/kimhang/WEDCD/src/main/java/dao/ProductDAO.java
+/workspaces/GiuaKy/kimhang/WEDCD/src/main/java/dao/UserDAO.java
 /workspaces/GiuaKy/kimhang/WEDCD/src/main/java/model/DBContext.java
 /workspaces/GiuaKy/kimhang/WEDCD/src/main/java/model/Product.java
+/workspaces/GiuaKy/kimhang/WEDCD/src/main/java/model/User.java

@@ -37,6 +37,7 @@ public class EditProductServlet extends HttpServlet {
 
         dao.updateProduct(id, name, price, stock);
 
-        response.sendRedirect("listsanpham.jsp");
+        request.getRequestDispatcher("/timsanpham")
+       .forward(request,response);
     }
 }

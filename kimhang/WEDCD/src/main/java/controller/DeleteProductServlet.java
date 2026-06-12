@@ -26,6 +26,7 @@ public class DeleteProductServlet extends HttpServlet {
 
         dao.deleteProduct(id);
 
-        response.sendRedirect("listsanpham.jsp");
+        request.getRequestDispatcher("/timsanpham")
+       .forward(request,response);
     }
 }
